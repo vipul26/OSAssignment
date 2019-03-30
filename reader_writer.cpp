@@ -89,10 +89,10 @@ void *reader(void *arg){
 		cout << "Unable to read file." << endl;
 	}
 	sem_wait(&resource_count_access);
-    read_count--;                // update count of active readers
-    if (read_count == 0)         // if there are no readers left:
-        sem_post(&resource_access);     // release resource access for all
-    sem_post(&resource_count_access);
+    	read_count--;                // update count of active readers
+    	if (read_count == 0)         // if there are no readers left:
+        	sem_post(&resource_access);     // release resource access for all
+    	sem_post(&resource_count_access);
 }
 
 void *writer(void *arg){
