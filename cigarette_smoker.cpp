@@ -1,3 +1,7 @@
+/* This file contains the solution of cigarette smoker problem.
+* Three semaphores are declared here for three states of smoking, and a lock, done_smoking sem is also defined.
+* There is an agent function and three smokers.
+*/
 #include <iostream>
 #include <pthread.h>
 #include <semaphore.h>
@@ -6,25 +10,30 @@
 
 using namespace std;
 
+// Semaphore Declaration
 sem_t tobacco_and_paper;
 sem_t matches_and_paper;
 sem_t tobacco_and_matches;
 sem_t done_smoking, lock;
 
+// Fucnction declaration
 void *agent(void *arg);
 void *smoker_first(void *arg);
 void *smoker_second(void *arg);
 void *smoker_third(void *arg);
 
 int main(){
+    // thread declaration
     pthread_t smoker_thread[3];
     pthread_t agent_thread;
+    //Semaphore initialization
     sem_init(&done_smoking, 0, 1);
     sem_init(&lock, 0, 1);
     sem_init(&tobacco_and_matches, 0, 0);
     sem_init(&matches_and_paper, 0, 0);
     sem_init(&tobacco_and_paper, 0, 0);
 
+    // Thread creation
     pthread_create(&agent_thread, NULL, agent, NULL);
     pthread_create(&smoker_thread[0], NULL, smoker_first, NULL);
     pthread_create(&smoker_thread[1], NULL, smoker_second, NULL);
